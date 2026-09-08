@@ -191,7 +191,7 @@ function detectInspections(dir, files, rootCwd) {
   if (has(/\.(json|ya?ml|csv|tsv|xml)$/i)) actions.push(inspectionAction("inspect:structured-data", "核对格式、字段、完整性和任务约束。", dir, "structured data present", rootCwd));
   if (has(/\.(png|jpe?g|gif|webp|svg|pdf|fig|sketch)$/i)) actions.push(inspectionAction("inspect:visual", "渲染并检查内容完整性、可读性、尺寸和导出结果。", dir, "visual materials present", rootCwd));
   if (has(/\.(mp3|wav|m4a|mp4|mov|webm)$/i)) actions.push(inspectionAction("inspect:media", "播放并检查可访问性、时长、内容完整性和输出质量。", dir, "media materials present", rootCwd));
-  actions.push(inspectionAction("inspect:requirements", "逐项核对实际产出与 requirements，并记录证据和未解决事项。", dir, "AI Native workflow", rootCwd));
+  actions.push(inspectionAction("inspect:requirements", "逐项核对实际产出与 requirements，并记录证据和未解决事项。", dir, "ACW workflow", rootCwd));
   return actions;
 }
 
@@ -366,7 +366,7 @@ function diagnostic(level, code, file, message) {
 }
 
 function toMarkdown(data) {
-  const lines = ["# AI Native Recipes", "", `生成时间：${data.generatedAt}`, ""];
+  const lines = ["# ACW Recipes", "", `生成时间：${data.generatedAt}`, ""];
   if (data.diagnostics.length) {
     lines.push("## 扫描诊断", "", "| 级别 | 代码 | 路径 | 说明 |", "|------|------|------|------|");
     for (const item of data.diagnostics) lines.push(`| ${escapeCell(item.level)} | ${escapeCell(item.code)} | ${escapeCell(item.path)} | ${escapeCell(item.message)} |`);

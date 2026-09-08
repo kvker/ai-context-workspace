@@ -1,9 +1,9 @@
 ---
 name: an-task-split
-description: 将过大的 AI Native 任务拆成目标清晰、可独立 Review 的子任务，并创建带稳定父子 ID 的任务 Artifact。用户要求拆分、分解或规划大任务时使用。
+description: 将过大的 ACW 任务拆成目标清晰、可独立 Review 的子任务，并创建带稳定父子 ID 的任务 Artifact。用户要求拆分、分解或规划大任务时使用。
 ---
 
-# AI Native 任务拆分
+# ACW 任务拆分
 
 拆分本身是一个 L2 或 L3 任务，阶段和状态遵循 `conventions/workflow.md`。目标是形成可独立执行、检查和归档的子任务，而不是按固定行业模块切割。原任务足够小时停止拆分，改用 `$an-task`。
 

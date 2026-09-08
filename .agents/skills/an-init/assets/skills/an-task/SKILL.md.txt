@@ -3,7 +3,7 @@ name: an-task
 description: 根据目标、范围、风险和不确定性选择 L0-L3 流程，并推进到实际产出、结构化 Review 和归档。适用于开发、写作、研究、分析、设计、整理和配置等需要 AI 执行的任务。用户明确下达“开始吧”“开始做”“实现”“动手”“开工”“按方案执行”等进入执行态的指令时，无论此前讨论了多少轮，都必须先经过本 Skill 分流。
 ---
 
-# AI Native 任务执行
+# ACW 任务执行
 
 使用最轻但足够安全的流程完成实际工作。阶段、生命周期和 Review 契约以 `conventions/workflow.md` 为唯一权威定义；流程等级只按 `conventions/flow-policy.md` 判断。
 

@@ -94,5 +94,5 @@ test("模板初始状态契约有效且不预置个人 Memory", () => {
 
   assert.deepEqual(index, { schemaVersion: 1, active: [] });
   assert.deepEqual(memories, ["AGENTS.md"]);
-  assert.match(fs.readFileSync(path.join(root, "README.md"), "utf8"), /^<!-- ai-native-template-readme -->/);
+  assert.match(fs.readFileSync(path.join(root, "README.md"), "utf8"), /^<!-- ai-context-workspace-readme -->/);
 });

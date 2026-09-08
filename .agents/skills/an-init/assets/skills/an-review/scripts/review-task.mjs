@@ -384,7 +384,7 @@ function unique(items) {
 
 function toMarkdown(result) {
   const lines = [
-    "# AI Native Review Gate",
+    "# ACW Review Gate",
     "",
     `- Artifact: \`${result.artifact}\``,
     `- Artifact state: **${result.status}**`,

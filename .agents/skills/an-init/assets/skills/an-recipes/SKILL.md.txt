@@ -3,7 +3,7 @@ name: an-recipes
 description: 从 projects 中的实际材料探测并维护可复用动作清单，包括命令、检查、审阅、预览和导出动作。用户询问工作区有哪些可执行或可检查动作、任务 Review 需要选择动作，或初始化后生成 .agents/recipes.json 时使用。
 ---
 
-# AI Native 动作清单
+# ACW 动作清单
 
 Recipes 记录 AI 可以重复使用的工作区动作。动作不局限于 Shell 命令，也可以是材料核对、内容审阅、结果预览或其他有明确步骤的检查。
 

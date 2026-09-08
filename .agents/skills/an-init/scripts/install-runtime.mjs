@@ -3,7 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-const TEMPLATE_README_MARKER = "<!-- ai-native-template-readme -->";
+const TEMPLATE_README_MARKER = "<!-- ai-context-workspace-readme -->";
 const PENDING_START = "<!-- an-init-pending:start -->";
 const PENDING_END = "<!-- an-init-pending:end -->";
 

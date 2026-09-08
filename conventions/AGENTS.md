@@ -1,12 +1,12 @@
 # conventions
 
-本目录保存 AI Native 上下文的长期约定、工作流规范与对话优化记录。
+本目录保存 AI Context Workspace 的长期约定、工作流规范与对话优化记录。
 
 ## 规范索引
 
 | 规范 | 何时读取 |
 |------|----------|
-| [principles](principles.md) | 理解 AI Native 核心原则 |
+| [principles](principles.md) | 理解 AI Context Workspace 核心原则 |
 | [workflow](workflow.md) | 判断阶段、状态、Review 结论和归档门禁 |
 | [flow-policy](flow-policy.md) | 判断使用 L0/L1/L2/L3 哪种流程 |
 | [document](document.md) | 编写或维护上下文文档 |

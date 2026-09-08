@@ -1,12 +1,12 @@
-# AI Native 上下文模板
+# AI Context Workspace
 
-这是一个通用的 AI Native 上下文模板，用于为任意类型的 AI 协作任务提供结构化上下文。
+这是一个通用的 AI Context Workspace，用于为任意类型的 AI 协作任务提供结构化上下文。
 
-> **缩写说明**：对话中出现的“AN”一般指 AI Native 的缩写。
+> **缩写说明**：对话中出现的“ACW”一般指 AI Context Workspace 的缩写；`an-*` 是保留的运行期 Skill 命名空间。
 
-## 模板定位
+## 工作区定位
 
-本模板不预设任务类型。它既可以承载代码开发，也可以承载文档写作、方案设计、数据分析、研究整理、内容创作、流程规划等任何需要多轮 AI 协作的任务。
+本工作区不预设任务类型。它既可以承载代码开发，也可以承载文档写作、方案设计、数据分析、研究整理、内容创作、流程规划等任何需要多轮 AI 协作的任务。
 
 核心目标：让 AI 在一致的上下文结构中理解目标、规范、背景和任务状态，减少重复沟通，提升协作质量。
 
@@ -39,7 +39,7 @@
 
 | 规范 | 用途 |
 |------|------|
-| [principles](conventions/principles.md) | AI Native 核心原则 |
+| [principles](conventions/principles.md) | AI Context Workspace 核心原则 |
 | [workflow](conventions/workflow.md) | 标准工作流 |
 | [flow-policy](conventions/flow-policy.md) | 流程轻重判断 |
 | [document](conventions/document.md) | 文档编写规范 |

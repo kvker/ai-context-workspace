@@ -3,7 +3,7 @@ name: an-review
 description: 按 requirements 的稳定完成标准审阅实际产出，将逐项结果写入 review.json，并给出 PASS、REVIEW 或 BLOCKED 结论。任务执行后、归档前或用户要求检查任务是否完成时使用。
 ---
 
-# AI Native 任务 Review
+# ACW 任务 Review
 
 检查实际产出是否达到完成标准。生命周期和 Review 机器契约统一遵循 `conventions/workflow.md`。
 

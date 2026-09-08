@@ -1,16 +1,16 @@
-<!-- ai-native-template-readme -->
+<!-- ai-context-workspace-readme -->
 
-# AI Native 上下文模板
+# AI Context Workspace
 
-这是一个领域无关的 AI Context 工作区模板，用于为任意类型的多轮 AI 协作提供稳定、可追踪的上下文结构。
+这是一个领域无关的 AI Context Workspace 模板，用于为任意类型的多轮 AI 协作提供稳定、可追踪的上下文结构。
 
 > 本 README 仅供模板阶段使用。初始化时会将其改写为当前工作区的人类概览，不会直接删除。
 
-## 模板定位
+## 工作区定位
 
-模板不预设工作类型。代码、文档、数据、设计资源、研究材料、内容项目或其他需要 AI 理解和操作的材料，都可以作为独立工作单元放入 `projects/`。
+工作区不预设工作类型。代码、文档、数据、设计资源、研究材料、内容项目或其他需要 AI 理解和操作的材料，都可以作为独立工作单元放入 `projects/`。
 
-模板负责组织背景、约定、任务过程、产出引用、检查结果和归档状态，不定义具体行业如何工作。AI 根据实际材料和用户输入理解当前工作区。
+工作区负责组织背景、约定、任务过程、产出引用、检查结果和归档状态，不定义具体行业如何工作。AI 根据实际材料和用户输入理解当前工作区。
 
 ## 快速开始
 
@@ -30,7 +30,7 @@ $an-init
 ## 目录结构
 
 ```text
-ai-native-template/
+ai-context-workspace/
 ├── AGENTS.md
 ├── .agents/
 │   └── skills/an-init/
@@ -47,7 +47,7 @@ ai-native-template/
 | `conventions/` | 长期规范、工作流和对话记忆规则 |
 | `artifacts/` | 任务状态、上下文、检查证据和归档记录 |
 | `projects/` | 实际工作材料和交付物所在的工作区根目录 |
-| `.agents/skills/` | 初始化后可用的 AI Native Skills |
+| `.agents/skills/` | 初始化后可用的 AI Context Workspace Skills |
 
 ## 标准工作流
 

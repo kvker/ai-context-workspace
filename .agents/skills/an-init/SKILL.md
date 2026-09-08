@@ -1,11 +1,11 @@
 ---
 name: an-init
-description: 将已有工作单元或空模板初始化为领域无关的 AI Native 上下文工作区。分析 projects 中的材料，生成 background、conventions、recipes 和运行期路由，并安全安装运行期 Skills。始终使用中文与用户沟通。
+description: 将已有工作单元或空目录初始化为领域无关的 AI Context Workspace。分析 projects 中的材料，生成 background、conventions、recipes 和运行期路由，并安全安装运行期 Skills。始终使用中文与用户沟通。
 ---
 
-# AI Native 上下文初始化
+# AI Context Workspace 初始化
 
-将 `projects/` 中的材料纳入通用 AI Context 结构。初始化只整理事实和约定，不创建任务 Artifact，不预设行业。
+将 `projects/` 中的材料纳入通用 AI Context Workspace 结构。初始化只整理事实和约定，不创建任务 Artifact，不预设行业。
 
 ## 一、前置检查
 
@@ -75,7 +75,7 @@ node .agents/skills/an-init/assets/skills/an-refresh/scripts/scan-projects.mjs -
 
 ### README.md
 
-将模板 README 改写为当前工作区的人类概览，至少说明用途、工作单元、目录、运行期 Skills 和启动方式。必须移除 `<!-- ai-native-template-readme -->` 标记；不要删除用户 README。
+将模板 README 改写为当前工作区的人类概览，至少说明用途、工作单元、目录、运行期 Skills 和启动方式。必须移除 `<!-- ai-context-workspace-readme -->` 标记；不要删除用户 README。
 
 ### background
 

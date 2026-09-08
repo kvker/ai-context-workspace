@@ -1,4 +1,4 @@
 interface:
-  display_name: "AI Native 背景刷新"
-  short_description: "依据项目事实和已归档任务增量刷新 AI Native 背景知识"
-  default_prompt: "使用 $an-refresh 比较项目事实、已归档任务与现有背景，并增量刷新 AI Native 上下文。"
+  display_name: "ACW 背景刷新"
+  short_description: "依据项目事实和已归档任务增量刷新 ACW 背景知识"
+  default_prompt: "使用 $an-refresh 比较项目事实、已归档任务与现有背景，并增量刷新 AI Context Workspace 上下文。"

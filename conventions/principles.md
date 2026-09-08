@@ -1,4 +1,4 @@
-# AI Native 核心原则
+# AI Context Workspace 核心原则
 
 ## 基本原则
 
