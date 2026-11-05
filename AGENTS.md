@@ -16,11 +16,21 @@
 |------|------|---------|
 | [background](background/) | 稳定且可刷新的背景知识 | 任务默认只读，仅由初始化、刷新流程或用户明确要求更新 |
 | [conventions](conventions/) | 上下文约定规范、对话长期规则与优化记录 | 开始任务前按需读取；对话过程中自动感知并按需写入 |
-| [artifacts](artifacts/) | 任务状态、上下文与检查证据 | 按任务需要读写；实际交付物只保存引用 |
-| [projects](projects/) | 实际工作区 / 交付物根目录 | 按任务需要读取和写入，每个子目录为一个独立工作单元 |
+| [artifacts](artifacts/) | 任务上下文：计划、待办、决策、进度、检查证据与任务状态 | 按任务需要读写；实际交付物只保存引用 |
+| [projects](projects/) | 具体业务交付物根目录，每个子目录为一个独立工作单元 | 只写与交付物强相关的变更；宏观计划、TODO 和任务状态不写在此 |
 | [.agents/skills/an-init](.agents/skills/an-init/) | 模板初始化技能，运行期技能暂存在其 `assets/skills/` 中 | 模板阶段的入口技能；运行期技能以 `SKILL.md.txt` 暂存，模板阶段不可见；`$an-init` 完成后恢复文件名并移入 `.agents/skills/`，an-init 自身删除 |
 
 > `projects/` 在本模板中被视为**工作区根目录**，子目录可以是代码工程、文档集、数据集、设计稿目录或任何需要被 AI 理解和操作的交付物集合。
+
+## ACW 与 projects 的职责边界
+
+ACW 是上下文主体，`projects/` 只承载具体业务交付物，两者不是平级的工作区。
+
+- 计划、方案、TODO、排期、进度、评审记录和任务状态属于 ACW：任务级写入 `artifacts/`，长期稳定的写入 `background/` 或 `conventions/`。
+- `projects/{unit}` 只写交付物本体及强相关变更（代码、测试、构建配置、随交付物演进的文档）；Git 仓库不改变归属。
+- 不得在 `projects/` 子目录新建 TODO、plan、roadmap 一类宏观计划文件。
+
+完整规则见 [scope](conventions/scope.md)。
 
 ## 约定
 
@@ -40,6 +50,7 @@
 | 规范 | 用途 |
 |------|------|
 | [principles](conventions/principles.md) | AI Context Workspace 核心原则 |
+| [scope](conventions/scope.md) | ACW 与 `projects/` 的职责边界 |
 | [workflow](conventions/workflow.md) | 标准工作流 |
 | [flow-policy](conventions/flow-policy.md) | 流程轻重判断 |
 | [document](conventions/document.md) | 文档编写规范 |

@@ -51,6 +51,7 @@ node .agents/skills/an-init/assets/skills/an-refresh/scripts/scan-projects.mjs -
 
 - 已确认的工作区定位和工作单元路由。
 - 目录职责和敏感文件约束。
+- ACW 与 `projects/` 职责边界：ACW 承载计划、TODO、进度和任务状态，`projects/` 只承载具体业务交付物；必须指向 `conventions/scope.md`。
 - 必读规范。
 - 指向 `artifacts/index.json` 的任务状态路由。
 - `$an-task`、`$an-task-split`、`$an-recipes`、`$an-refresh`、`$an-review`、`$an-archive` 的运行期 Skill 路由。
@@ -89,9 +90,9 @@ node .agents/skills/an-init/assets/skills/an-refresh/scripts/scan-projects.mjs -
 
 ### conventions
 
-- `conventions/structure.md`：实际目录结构和工作单元职责。
+- `conventions/structure.md`：实际目录结构和工作单元职责；必须写明 `projects/` 只承载交付物，宏观计划、待办和任务状态归 ACW。
 - `conventions/style-guide.md`：有证据的命名、文件组织、格式和标注约定；没有稳定规律时保持简短。
-- 保留 `workflow.md`、`flow-policy.md`、`document.md`、`principles.md` 和 `rules.md` 的通用机器契约，不把业务事实复制进去。
+- 保留 `workflow.md`、`flow-policy.md`、`document.md`、`principles.md`、`rules.md` 和 `scope.md` 的通用机器契约与职责边界，不把业务事实复制进去。
 
 ### artifacts
 

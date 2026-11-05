@@ -36,7 +36,7 @@ Artifact ID 使用 UTC 日期：`YYYYMMDD__task-name`。`task-name` 只含小写
 | `{artifact}/review/review.json` | Review 结论、逐项证据和接受记录 |
 | `{artifact}/archive/summary.md` | 完结或取消摘要 |
 
-其他阶段文档可以按任务需要命名；“文件名不固定”不适用于上述机器契约。实际交付物写入 `projects/` 或用户指定位置，Artifact 只保存任务上下文、证据和引用。
+其他阶段文档可以按任务需要命名；“文件名不固定”不适用于上述机器契约。实际交付物写入 `projects/` 或用户指定位置，Artifact 只保存任务上下文、证据和引用。计划、方案、TODO、排期、进度和任务状态属于任务上下文，写入 Artifact 或 `background/`、`conventions/`，不得写入 `projects/` 工作单元，归属边界见 [scope](scope.md)。
 
 `artifact.json` 最低结构：
 

@@ -96,3 +96,17 @@ test("模板初始状态契约有效且不预置个人 Memory", () => {
   assert.deepEqual(memories, ["AGENTS.md"]);
   assert.match(fs.readFileSync(path.join(root, "README.md"), "utf8"), /^<!-- ai-context-workspace-readme -->/);
 });
+
+test("ACW 与 projects 职责边界固化在约定并进入初始化产物", () => {
+  const root = path.resolve(INIT, "../../../");
+  const scope = fs.readFileSync(path.join(root, "conventions/scope.md"), "utf8");
+  const agents = fs.readFileSync(path.join(root, "AGENTS.md"), "utf8");
+  const conventionsIndex = fs.readFileSync(path.join(root, "conventions/AGENTS.md"), "utf8");
+  const init = fs.readFileSync(path.join(INIT, "SKILL.md"), "utf8");
+
+  assert.match(scope, /不得在 `projects\/` 子目录新建 TODO/);
+  assert.match(agents, /conventions\/scope\.md/);
+  assert.match(conventionsIndex, /scope\.md/);
+  assert.match(init, /conventions\/scope\.md/);
+  assert.match(init, /structure\.md.*只承载交付物/);
+});

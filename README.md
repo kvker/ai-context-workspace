@@ -12,6 +12,8 @@
 
 工作区负责组织背景、约定、任务过程、产出引用、检查结果和归档状态，不定义具体行业如何工作。AI 根据实际材料和用户输入理解当前工作区。
 
+ACW 是上下文主体，`projects/` 只放具体业务交付物。计划、方案、TODO、排期和进度留在 `artifacts/`、`background/` 或 `conventions/`，不写入 `projects/` 子目录。
+
 ## 快速开始
 
 1. 将已有材料放入 `projects/{workspace}/`。没有材料时也可以从空模板初始化。
@@ -45,8 +47,8 @@ ai-context-workspace/
 |------|------|
 | `background/` | 从工作区事实和用户输入整理出的稳定背景 |
 | `conventions/` | 长期规范、工作流和对话记忆规则 |
-| `artifacts/` | 任务状态、上下文、检查证据和归档记录 |
-| `projects/` | 实际工作材料和交付物所在的工作区根目录 |
+| `artifacts/` | 任务状态、计划待办、上下文、检查证据和归档记录 |
+| `projects/` | 具体业务交付物根目录；宏观计划和 TODO 不属于这里 |
 | `.agents/skills/` | 初始化后可用的 AI Context Workspace Skills |
 
 ## 标准工作流

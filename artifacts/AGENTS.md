@@ -1,6 +1,6 @@
 # artifacts 目录说明
 
-`artifacts/` 保存任务状态、上下文、决策和检查证据。实际交付物写入 `projects/` 或用户指定位置，Artifact 只保存引用。
+`artifacts/` 保存任务状态、上下文、决策和检查证据，也是计划、待办和进度的归属地。实际交付物写入 `projects/` 或用户指定位置，Artifact 只保存引用。
 
 活跃 Artifact 的唯一索引是 `artifacts/index.json`。每个需要留痕的任务使用独立目录，命名为 `YYYYMMDD__task-name`，日期使用 UTC；`task-name` 只使用小写字母、数字和连字符，同日重名时追加稳定短后缀。
 
