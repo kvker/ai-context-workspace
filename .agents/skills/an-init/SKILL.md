@@ -1,6 +1,6 @@
 ---
 name: an-init
-description: 将已有工作单元或空目录初始化为领域无关的 AI Context Workspace。分析 projects 中的材料，生成 background、conventions、recipes 和运行期路由，并安全安装运行期 Skills。始终使用中文与用户沟通。
+description: 将已有工作单元或空目录初始化为领域无关的 AI Context Workspace。分析 projects 中的材料，生成 knowledge、conventions、recipes 和运行期路由，并安全安装运行期 Skills。始终使用中文与用户沟通。
 ---
 
 # AI Context Workspace 初始化
@@ -10,10 +10,12 @@ description: 将已有工作单元或空目录初始化为领域无关的 AI Con
 ## 一、前置检查
 
 1. 确认当前目录同时包含根 `AGENTS.md`、`artifacts/index.json` 和 `.agents/skills/an-init/SKILL.md`；否则停止，要求从工作区根目录重新执行。
-2. 检查 `projects/` 下一级子目录，每个子目录视为独立工作单元。
-3. `projects/` 为空或不存在时，一次性询问是否从空模板开始；确认后创建目录并生成最小上下文。
-4. 已有材料时直接继续，不要求用户填写能够从材料获得的信息。
-5. 独立工作单元默认可以用子代理并行扫描；环境不支持时由主代理顺序完成。
+2. 检查工作区根目录是否存在旧版 `background/` 或 `background/` 与 `knowledge/` 并存。存在时暂停初始化并报告，要求用户先确定唯一事实源：迁移到 `knowledge/` 并移除旧目录，或中止初始化并移除新引入的 `knowledge/`；不得两套目录并存。迁移时必须重建 `knowledge/AGENTS.md`，移除旧的只读门禁和弱证据规则，改用当前模板契约。
+3. 检查 `.agents/skills/` 是否存在与 `assets/skills` 同名（`an-task`、`an-task-split`、`an-recipes`、`an-refresh`、`an-review`、`an-archive`）的旧运行期 Skill 副本；存在时先报告并请用户确认清理，否则安装器会因目标已存在而失败。不要清理其他自有 Skill。
+4. 检查 `projects/` 下一级子目录，每个子目录视为独立工作单元。
+5. `projects/` 为空或不存在时，一次性询问是否从空模板开始；确认后创建目录并生成最小上下文。
+6. 已有材料时直接继续，不要求用户填写能够从材料获得的信息。
+7. 独立工作单元默认可以用子代理并行扫描；环境不支持时由主代理顺序完成。
 
 ## 二、执行流程
 
@@ -51,12 +53,13 @@ node .agents/skills/an-init/assets/skills/an-refresh/scripts/scan-projects.mjs -
 
 - 已确认的工作区定位和工作单元路由。
 - 目录职责和敏感文件约束。
-- ACW 与 `projects/` 职责边界：ACW 承载计划、TODO、进度和任务状态，`projects/` 只承载具体业务交付物；必须指向 `conventions/scope.md`。
+- ACW 与 `projects/` 职责边界：计划、方案、TODO、排期、进度、评审记录、决策和任务状态归 `artifacts/`，L0/L1 无 Artifact 时只保留在当轮回复中，不写入 `knowledge/` 或 `projects/`；工作区级事实写入 `knowledge/`，协作规范写入 `conventions/`；长期路线图与跨任务计划按 `artifacts/` 既有契约管理；`projects/` 只承载具体业务交付物；必须指向 `conventions/scope.md`。
 - 必读规范。
 - 指向 `artifacts/index.json` 的任务状态路由。
+- `knowledge/` 由 AI 持续维护，不设置默认只读门禁；用户明确限定只读或范围时遵守该范围；路由中必须说明按需读取、可增量写入、任务过程不写入 `knowledge/`，L0/L1 无 Artifact 时只保留在当轮回复中。
 - `$an-task`、`$an-task-split`、`$an-recipes`、`$an-refresh`、`$an-review`、`$an-archive` 的运行期 Skill 路由。
 - `$an-task` 触发规则：用户明确下达“开始吧”“开始做”“实现”“动手”“开工”等进入执行态的指令时，无论此前讨论多少轮，都必须先经 `$an-task` 分流；该规则写入运行期根 AGENTS。
-- `$an-task` 规模规则：小改动只允许不创建 Artifact，不允许跳过分流；预计变更涉及 3 个以上文件或跨前后端时至少使用 L2。
+- `$an-task` 规模规则：小改动只允许不创建 Artifact，不允许跳过分流；预计变更涉及 3 个以上文件或跨前后端时至少使用 L2；知识维护不计入文件数、跨层、新增文件、长期数据或多轮迭代类规模判据。
 
 移除原模板阶段说明，但在安装完成前保留以下唯一待完成路由块；所有 `$an-init` 和 `.agents/skills/an-init` 引用都必须放在块内：
 
@@ -76,21 +79,21 @@ node .agents/skills/an-init/assets/skills/an-refresh/scripts/scan-projects.mjs -
 
 ### README.md
 
-将模板 README 改写为当前工作区的人类概览，至少说明用途、工作单元、目录、运行期 Skills 和启动方式。必须移除 `<!-- ai-context-workspace-readme -->` 标记；不要删除用户 README。
+将模板 README 改写为当前工作区的人类概览，至少说明用途、工作单元、目录、运行期 Skills 和启动方式，并写明 `knowledge/` 存事实、`conventions/` 存规范、`artifacts/` 存任务过程。必须移除 `<!-- ai-context-workspace-readme -->` 标记；不要删除用户 README。
 
-### background
+### knowledge
 
 生成或更新：
 
-- `background/overview.md`：定位、已知目标、主要材料、待确认和来源。
-- `background/workspaces.md`：每个工作单元的路径、类型、内容、动作和来源。
-- `background/AGENTS.md`：稳定但可刷新、任务默认只读、已确认与待确认分离。
+- `knowledge/overview.md`：定位、已知目标、主要材料、待确认和来源。
+- `knowledge/workspaces.md`：工作单元清单与关系（工作区级索引，不是交付物文档），包含路径、类型、内容、动作和来源。
+- `knowledge/AGENTS.md`：稳定事实、可增量维护、已确认与待确认分离；AI 可在任务中发现稳定事实时主动更新；必须保留按需读取、用户明确限定只读或范围时遵守该范围的规则、写入标注来源、任务内写入后报告变更/来源/待确认、保留仍有效人工内容、无来源不写入、`$an-refresh` 不是唯一入口、冲突处理、`acceptable: true` 证据门槛（含 diagnostics 索引异常检查）、“直接观察”例外和 knowledge/conventions/artifacts 边界。
 
-不要创建 `background/product/overview.md` 等行业固定路径。
+不要创建 `knowledge/product/overview.md` 等行业固定路径。
 
 ### conventions
 
-- `conventions/structure.md`：实际目录结构和工作单元职责；必须写明 `projects/` 只承载交付物，宏观计划、待办和任务状态归 ACW。
+- `conventions/structure.md`：目录职责与组织规范（规范视角）；实际工作单元清单、路径和关系只写 `knowledge/workspaces.md`，不得在 structure.md 复制。必须写明 `knowledge/` 存事实、`conventions/` 存规范、`projects/` 只承载交付物，宏观计划、方案、待办、排期、进度、决策、评审记录和任务状态归 `artifacts/`。
 - `conventions/style-guide.md`：有证据的命名、文件组织、格式和标注约定；没有稳定规律时保持简短。
 - 保留 `workflow.md`、`flow-policy.md`、`document.md`、`principles.md`、`rules.md` 和 `scope.md` 的通用机器契约与职责边界，不把业务事实复制进去。
 
@@ -147,6 +150,8 @@ node .agents/skills/an-init/scripts/install-runtime.mjs --root .
 | 空工作区未获确认 | 停止，不安装 Skills |
 | 扫描脚本失败 | 报告失败并用可用工具继续整理；不得把失败记为空结果 |
 | 部分文件无法读取 | 跳过并记录路径和限制 |
+| 旧目录或旧运行期 Skill 残留 | 先完成迁移并清理旧副本，再重新执行初始化 |
+| 用户暂不迁移 | 中止初始化，并移除新引入的 `knowledge/`，保留旧目录为唯一事实源 |
 | 安装预检失败 | 修复根路由、README 或目标冲突后重新预检 |
 | 安装提交失败 | 保留待完成路由和 an-init，报告回滚结果后可直接重试 |
 | 旧 an-init 副本清理 warning | 运行期 Skills 已安装；报告残留路径，不反向回滚 |

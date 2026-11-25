@@ -1,6 +1,6 @@
 # conventions
 
-本目录保存 AI Context Workspace 的长期约定、工作流规范与对话优化记录。
+本目录保存 AI Context Workspace 的长期约定、工作流规范与对话优化记录。规范正文变更需显式更新；`conventions/memories/` 中的对话记忆按 [rules](rules.md) 机制写入。`knowledge/` 存工作区事实，本目录存协作规范，两者不互相替代。
 
 ## 规范索引
 

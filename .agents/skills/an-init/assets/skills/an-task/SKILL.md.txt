@@ -21,7 +21,7 @@ description: 根据目标、范围、风险和不确定性选择 L0-L3 流程，
 
 分流判定不等于是否创建 Artifact：任何进入执行态的请求都必须先完成 L0-L3 判定并说明理由；L0/L1 只是允许不创建 Artifact，不允许跳过判定。
 
-按 `flow-policy.md` 的客观规模判据判定：预计变更涉及 3 个以上文件、跨前后端、涉及后端接口、数据迁移、权限或安全边界，或需新增文件、路由、接口、外部依赖，或需要多轮迭代才能完成时，至少使用 L2 并创建 Artifact。L0 限不超过 1 个文件、L1 限不超过 2 个文件，且仅在单个层内修改。
+按 `flow-policy.md` 的客观规模判据判定：预计变更涉及 3 个以上文件、跨前后端、涉及后端接口、数据迁移、权限或安全边界，或需新增文件、路由、接口、外部依赖，或需要多轮迭代才能完成时，至少使用 L2 并创建 Artifact。L0 限不超过 1 个文件、L1 限不超过 2 个文件，且仅在单个层内修改。知识维护（读取或增量写入 `knowledge/`）不计入文件数、跨层、新增文件、长期数据或多轮迭代类规模判据，详见 `flow-policy.md`。
 
 每完成一轮实质迭代后重新评估规模，暂停条件与处理方式遵循 `flow-policy.md`：未建仓任务在连续迭代达 3 轮或实际改动超出初始规模判断（如从单文件膨胀到跨前后端、触及后端/权限/数据）时，向用户确认是否升级流程并补建 Artifact；已建仓任务则在 Artifact 内更新相应阶段文档（如存在 requirements/spec）并重新 Review，不重复询问是否建仓。
 
@@ -62,16 +62,16 @@ L1 的轻量检查标准直接写入 `review.json.criteria[].description`，不�
 
 每阶段结束后同时更新 `artifact.json.updatedAt` 和索引项的 `updatedAt`。实际交付物写入 `projects/` 或用户指定位置，并将 `{ kind: "deliverable", path, description }` 加入 `deliverables`；过程文档和子 Artifact 不加入该数组。
 
-## 五、背景读取
+## 五、知识读取
 
 L2/L3 在提炼需求前只前置读取：
 
 ```text
-background/AGENTS.md
-background/overview.md
+knowledge/AGENTS.md
+knowledge/overview.md
 ```
 
-随后根据 `background/AGENTS.md` 和实际存在的文档按需读取相关背景。不得假设 `product`、`tech`、`features` 等固定行业目录。任务执行期间不修改 background。
+随后根据 `knowledge/AGENTS.md` 和实际存在的文档按需读取相关知识。不得假设 `product`、`tech`、`features` 等固定行业目录。执行中发现的稳定事实可按 `knowledge/AGENTS.md` 增量写回；一次性任务过程留在 Artifact（如存在），否则只保留在当轮回复中，不写入 `knowledge/`。任何等级在写入 `knowledge/` 前，至少读取 `knowledge/AGENTS.md`；写入后在本轮 execution 摘要或最终回复中报告变更、来源和待确认项。
 
 ## 六、阶段执行
 
@@ -111,7 +111,7 @@ requirements 中的复选框只便于阅读，不是机器状态；实际检查�
 
 PASS 状态为 `completed` 后只调用一次 `$an-archive`；已接受 REVIEW 和 cancelled 任务也调用同一 Skill。摘要、移动、状态和索引更新均由 Archive 事务脚本负责，`an-task` 不重复执行。用户明确要求暂不归档时保留当前状态。
 
-归档完成后，只有本任务形成了可长期复用且已有事实依据的新背景时，才运行 `$an-refresh`。不得在归档前直接修改 background。
+知识写回不依赖归档完成；归档阶段不承担知识写入职责。需要系统性校准全工作区知识时，可运行 `$an-refresh`。
 
 ## 七、暂停、取消与恢复
 

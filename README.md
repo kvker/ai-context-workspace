@@ -10,9 +10,9 @@
 
 工作区不预设工作类型。代码、文档、数据、设计资源、研究材料、内容项目或其他需要 AI 理解和操作的材料，都可以作为独立工作单元放入 `projects/`。
 
-工作区负责组织背景、约定、任务过程、产出引用、检查结果和归档状态，不定义具体行业如何工作。AI 根据实际材料和用户输入理解当前工作区。
+工作区负责组织知识、约定、任务过程、产出引用、检查结果和归档状态，不定义具体行业如何工作。AI 根据实际材料和用户输入理解当前工作区。
 
-ACW 是上下文主体，`projects/` 只放具体业务交付物。计划、方案、TODO、排期和进度留在 `artifacts/`、`background/` 或 `conventions/`，不写入 `projects/` 子目录。
+ACW 是上下文主体，`projects/` 只放具体业务交付物。计划、方案、TODO、排期、进度、决策和评审记录留在 `artifacts/`；工作区级、跨工作单元的稳定事实写入 `knowledge/`，跨工作单元规范写入 `conventions/`；随交付物演进的 README、API 和架构文档仍留在 `projects/`。宏观计划、TODO 和任务状态不写入 `projects/` 子目录。
 
 ## 快速开始
 
@@ -25,7 +25,7 @@ $an-init
 
 支持 Slash Command 的客户端也可以使用 `/an-init`。
 
-3. 初始化会分析工作单元、生成背景与约定、探测可用动作并安装运行期 Skills。安装完成后重启 OpenCode 或 Codex，再使用运行期 Skills。
+3. 初始化会分析工作单元、生成知识与约定、探测可用动作并安装运行期 Skills。安装完成后重启 OpenCode 或 Codex，再使用运行期 Skills。
 
 其他运行期 Skills 以 `SKILL.md.txt` 暂存在 `.agents/skills/an-init/assets/skills/`，模板阶段不会被发现。
 
@@ -38,14 +38,14 @@ ai-context-workspace/
 │   └── skills/an-init/
 │       └── assets/skills/
 ├── conventions/
-├── background/
+├── knowledge/
 ├── artifacts/
 └── projects/
 ```
 
 | 目录 | 用途 |
 |------|------|
-| `background/` | 从工作区事实和用户输入整理出的稳定背景 |
+| `knowledge/` | 从工作区事实和用户输入整理出的稳定知识；AI 可持续维护 |
 | `conventions/` | 长期规范、工作流和对话记忆规则 |
 | `artifacts/` | 任务状态、计划待办、上下文、检查证据和归档记录 |
 | `projects/` | 具体业务交付物根目录；宏观计划和 TODO 不属于这里 |
@@ -68,7 +68,7 @@ raw → requirements → design → spec → execution → review → archive
 | `$an-task` | 按风险选择 L0-L3 并执行任务 |
 | `$an-task-split` | 将过大的任务拆分为可独立推进的子任务 |
 | `$an-recipes` | 探测工作区可用的命令和检查动作 |
-| `$an-refresh` | 根据工作区现状刷新背景知识 |
+| `$an-refresh` | 根据工作区现状校准工作区知识 |
 | `$an-review` | 按完成标准检查任务并给出结论 |
 | `$an-archive` | 在满足门禁后归档已完成、已接受复核或已取消任务 |
 
@@ -81,7 +81,7 @@ initialized-workspace/
 │   ├── recipes.json
 │   └── skills/
 ├── conventions/
-├── background/
+├── knowledge/
 │   ├── AGENTS.md
 │   ├── overview.md
 │   └── workspaces.md
@@ -94,7 +94,7 @@ initialized-workspace/
 ## 核心原则
 
 1. AI 是目标协作者：上下文优先服务 AI 理解和执行。
-2. 事实驱动：背景只来自实际材料和用户明确输入。
+2. 事实驱动：知识只来自实际材料、用户明确输入、当前任务的实际执行观察，或经 `an-refresh` 扫描确认 `acceptable: true` 且 `diagnostics` 无索引错误的已归档 Artifact（二手线索）。
 3. 规范驱动执行：L2/L3 先明确可执行规范；L0/L1 至少明确目标和检查方式。
-
 4. 简单优先：只保留当前任务需要的阶段和记录。
+5. 事实与规范分层：`knowledge/` 存可刷新的工作区事实，`conventions/` 存需显式变更的协作规范。

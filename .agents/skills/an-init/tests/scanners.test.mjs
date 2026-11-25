@@ -94,7 +94,7 @@ test("归档扫描只信任结构化且可接受的完成任务", (t) => {
   assert.equal(items.get("20260804__cancelled").acceptable, false);
 });
 
-test("归档 requirements 与 Review 不一致时不能成为背景来源", (t) => {
+test("归档 requirements 与 Review 不一致时不能成为知识来源", (t) => {
   const root = createRoot();
   t.after(() => fs.rmSync(root, { recursive: true, force: true }));
   const dir = writeArchived(root, "20260804__requirements-drift", { status: "archived", outcome: "completed", conclusion: "PASS" });
@@ -106,7 +106,7 @@ test("归档 requirements 与 Review 不一致时不能成为背景来源", (t) 
   assert.ok(result.diagnostics.some((item) => item.message.includes("Review 标准描述与 requirements 不一致")));
 });
 
-test("仍在活跃索引中的归档不能成为背景来源", (t) => {
+test("仍在活跃索引中的归档不能成为知识来源", (t) => {
   const root = createRoot();
   t.after(() => fs.rmSync(root, { recursive: true, force: true }));
   const id = "20260804__still-active";
@@ -237,7 +237,7 @@ test("缺失或错误 artifacts 路径不会伪装成空归档", (t) => {
   assert.match(invalid.stderr, /必须指向目录/);
 });
 
-test("冲突 PASS、畸形类型和缺失摘要均不能成为背景来源", (t) => {
+test("冲突 PASS、畸形类型和缺失摘要均不能成为知识来源", (t) => {
   const root = createRoot();
   t.after(() => fs.rmSync(root, { recursive: true, force: true }));
   writeArchived(root, "20260804__blocked-pass", { status: "archived", outcome: "completed", conclusion: "PASS", criteriaStatus: "BLOCKED" });

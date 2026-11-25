@@ -271,7 +271,7 @@ function validateArchivedReview(review, artifact, requirementsText) {
     if (statuses.includes("BLOCKED") || (!statuses.includes("REVIEW") && review.unresolved.length === 0)) errors.push("REVIEW 与逐项结果不一致");
     if (!isAcceptedReview(review)) errors.push("REVIEW 缺少与当前内容匹配的完整接受记录");
   } else {
-    errors.push("BLOCKED Review 不能作为稳定背景来源");
+    errors.push("BLOCKED Review 不能作为稳定知识来源");
   }
   return errors;
 }
@@ -429,7 +429,7 @@ function toMarkdown(data) {
     lines.push(`## ${escapeHeading(workspace.name)}`, "", `- 路径：\`${escapeCell(workspace.path)}\``, `- 文件：${workspace.fileCount}`, `- 目录：${workspace.directoryCount}`, `- 已扫描条目：${workspace.scan.entriesScanned}`, `- 扫描上限：${workspace.scan.scanLimit}`, `- 结果截断：${workspace.scan.truncated ? "是，统计不完整" : "否"}`, `- 顶层条目截断：${workspace.topLevelTruncated ? "是" : "否"}`, `- 文件类型截断：${workspace.fileTypes.truncated ? "是" : "否"}`, `- 材料类型：${workspace.materialGroups.map((group) => `${escapeCell(group.name)}(${group.count})`).join("、") || "未识别"}`, `- 文件类型：${workspace.fileTypes.items.map((item) => `${escapeCell(item.extension)}(${item.count})`).join("、") || "无"}`, `- 声明动作：${workspace.declaredActions.items.map((action) => `\`${escapeCell(action)}\``).join("、") || "无"}${workspace.declaredActions.truncated ? "（已截断）" : ""}`, `- README：${workspace.readmeFiles.map((file) => `\`${escapeCell(file)}\``).join("、") || "无"}${workspace.readmeTruncated ? "（已截断）" : ""}`, "");
   }
   if (data.archivedReviews.items.length) {
-    lines.push("## 已归档任务", "", "| Artifact | 状态 | Outcome | Review | 可用于背景 | 完结摘要 |", "|----------|------|---------|--------|------------|----------|");
+    lines.push("## 已归档任务", "", "| Artifact | 状态 | Outcome | Review | 可用于知识 | 完结摘要 |", "|----------|------|---------|--------|------------|----------|");
     for (const item of data.archivedReviews.items) lines.push(`| ${escapeCell(item.artifact)} | ${escapeCell(item.status)} | ${escapeCell(item.outcome)} | ${escapeCell(item.conclusion)} | ${item.acceptable ? "是" : "否"} | ${item.summary ? `\`${escapeCell(item.summary)}\`` : "缺失"} |`);
     if (data.archivedReviews.truncated) lines.push("", `> 归档扫描达到 ${data.archivedReviews.limit} 项上限，结果不完整。`);
     lines.push("");
