@@ -162,9 +162,7 @@ test("knowledge 可维护且已移除只读门禁", () => {
   assert.match(knowledge, /acceptable: true/);
   assert.match(task, /知识写回不依赖归档完成/);
 
-  // 迁移边界、任务过程归属和分层约定必须被锁定
-  assert.match(init, /旧版 `background\/`/);
-  assert.match(init, /迁移到 `knowledge\/` 并移除旧目录/);
+  // 任务过程归属和分层约定必须被锁定
   assert.match(task, /留在 Artifact（如存在）/);
   assert.match(agents, /L0\/L1 无 Artifact 时只保留在当轮回复中/);
   assert.match(knowledge, /L0\/L1 无 Artifact 时只保留在当轮回复中/);
@@ -187,15 +185,11 @@ test("knowledge 可维护且已移除只读门禁", () => {
   assert.match(knowledge, /INVALID_ARTIFACT_INDEX/);
   assert.match(refresh, /显式更新入口/);
 
-  // 旧工作区迁移与生成契约
-  assert.match(init, /与 `knowledge\/` 并存/);
-  assert.match(init, /重建 `knowledge\/AGENTS\.md`/);
-  assert.match(init, /移除旧的只读门禁/);
+  // 生成契约与前置检查
   assert.match(init, /计划、方案、TODO、排期、进度、评审记录、决策和任务状态归 `artifacts\/`/);
   assert.match(init, /L0\/L1 无 Artifact 时只保留在当轮回复中/);
   assert.match(init, /diagnostics 索引异常检查/);
   assert.match(init, /宏观计划、方案、待办、排期、进度、决策、评审记录和任务状态归 `artifacts\/`/);
-  assert.match(init, /旧运行期 Skill/);
   assert.match(init, /knowledge\/overview\.md/);
   assert.match(init, /knowledge\/workspaces\.md/);
   assert.match(init, /可增量写入/);
@@ -209,7 +203,7 @@ test("knowledge 可维护且已移除只读门禁", () => {
   assert.match(knowledge, /需要理解工作区事实时，按需读取相关文档/);
   assert.match(knowledge, /随交付物演进的 README、API 和架构文档也留在 `projects\/`/);
   assert.match(init, /工作区级事实写入 `knowledge\/`，协作规范写入 `conventions\/`/);
-  assert.match(init, /存在与 `assets\/skills` 同名（`an-task`、`an-task-split`、`an-recipes`、`an-refresh`、`an-review`、`an-archive`）的旧运行期 Skill 副本/);
+  assert.match(init, /已存在与 `assets\/skills` 同名（`an-task`、`an-task-split`、`an-recipes`、`an-refresh`、`an-review`、`an-archive`）的运行期 Skill/);
   assert.match(refresh, /archivedReviews\.items\[\]\.acceptable: true/);
   assert.match(refresh, /有来源但未确认的推断只进入“待确认”分区/);
   assert.match(refresh, /用户明确限定只读、审查或范围时不得更新规范正文/);
@@ -230,8 +224,6 @@ test("knowledge 可维护且已移除只读门禁", () => {
   assert.match(scope, /任务计划与状态由 `artifacts\/` 承载（含方案、排期、决策、评审记录）/);
   assert.match(scope, /宏观计划、方案、TODO、排期、进度、决策、评审记录、任务状态/);
   assert.match(refresh, /都必须在本轮回复中列出变更点、来源和范围/);
-  assert.match(init, /用户暂不迁移/);
-  assert.match(init, /中止初始化并移除新引入的 `knowledge\/`/);
   assert.match(init, /写入标注来源/);
   assert.match(init, /任务内写入后报告变更\/来源\/待确认/);
   assert.match(init, /无来源不写入/);
@@ -283,9 +275,8 @@ test("结构性文档和运行期 Skill 不再引用旧知识目录", () => {
   const offenders = [];
   for (const file of targets) {
     fs.readFileSync(file, "utf8").split("\n").forEach((line, index) => {
-      const isMigrationNote = file === path.join(INIT, "SKILL.md") && /旧版 `background\/`/.test(line) && /迁移|保留/.test(line);
       const isLegacyRef = /background(?!-(?:color|image|size|position|repeat|attachment|clip|origin|blend))/i.test(line);
-      if (!isMigrationNote && isLegacyRef) offenders.push(`${path.relative(root, file)}:${index + 1}`);
+      if (isLegacyRef) offenders.push(`${path.relative(root, file)}:${index + 1}`);
     });
   }
   assert.deepEqual(offenders, []);

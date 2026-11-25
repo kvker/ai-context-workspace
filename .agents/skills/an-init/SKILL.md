@@ -10,12 +10,11 @@ description: 将已有工作单元或空目录初始化为领域无关的 AI Con
 ## 一、前置检查
 
 1. 确认当前目录同时包含根 `AGENTS.md`、`artifacts/index.json` 和 `.agents/skills/an-init/SKILL.md`；否则停止，要求从工作区根目录重新执行。
-2. 检查工作区根目录是否存在旧版 `background/` 或 `background/` 与 `knowledge/` 并存。存在时暂停初始化并报告，要求用户先确定唯一事实源：迁移到 `knowledge/` 并移除旧目录，或中止初始化并移除新引入的 `knowledge/`；不得两套目录并存。迁移时必须重建 `knowledge/AGENTS.md`，移除旧的只读门禁和弱证据规则，改用当前模板契约。
-3. 检查 `.agents/skills/` 是否存在与 `assets/skills` 同名（`an-task`、`an-task-split`、`an-recipes`、`an-refresh`、`an-review`、`an-archive`）的旧运行期 Skill 副本；存在时先报告并请用户确认清理，否则安装器会因目标已存在而失败。不要清理其他自有 Skill。
-4. 检查 `projects/` 下一级子目录，每个子目录视为独立工作单元。
-5. `projects/` 为空或不存在时，一次性询问是否从空模板开始；确认后创建目录并生成最小上下文。
-6. 已有材料时直接继续，不要求用户填写能够从材料获得的信息。
-7. 独立工作单元默认可以用子代理并行扫描；环境不支持时由主代理顺序完成。
+2. 检查 `.agents/skills/` 是否已存在与 `assets/skills` 同名（`an-task`、`an-task-split`、`an-recipes`、`an-refresh`、`an-review`、`an-archive`）的运行期 Skill；存在时先报告并请用户确认清理，否则安装器会因目标已存在而失败。不要清理其他自有 Skill。
+3. 检查 `projects/` 下一级子目录，每个子目录视为独立工作单元。
+4. `projects/` 为空或不存在时，一次性询问是否从空模板开始；确认后创建目录并生成最小上下文。
+5. 已有材料时直接继续，不要求用户填写能够从材料获得的信息。
+6. 独立工作单元默认可以用子代理并行扫描；环境不支持时由主代理顺序完成。
 
 ## 二、执行流程
 
@@ -150,8 +149,7 @@ node .agents/skills/an-init/scripts/install-runtime.mjs --root .
 | 空工作区未获确认 | 停止，不安装 Skills |
 | 扫描脚本失败 | 报告失败并用可用工具继续整理；不得把失败记为空结果 |
 | 部分文件无法读取 | 跳过并记录路径和限制 |
-| 旧目录或旧运行期 Skill 残留 | 先完成迁移并清理旧副本，再重新执行初始化 |
-| 用户暂不迁移 | 中止初始化，并移除新引入的 `knowledge/`，保留旧目录为唯一事实源 |
+| 同名运行期 Skill 已存在 | 先报告并请用户确认清理，再重新执行初始化 |
 | 安装预检失败 | 修复根路由、README 或目标冲突后重新预检 |
 | 安装提交失败 | 保留待完成路由和 an-init，报告回滚结果后可直接重试 |
 | 旧 an-init 副本清理 warning | 运行期 Skills 已安装；报告残留路径，不反向回滚 |
